@@ -10,8 +10,17 @@ from werkzeug.utils import secure_filename
 import imghdr
 from flask import Flask, request, jsonify
 import logging
+from flask_caching import Cache
 
 app = Flask(__name__)
+
+config = {
+    'CACHE_TYPE': 'simple',
+    'CACHE_DEFAULT_TIMEOUT': 3600
+}
+
+app.config.from_mapping(config)
+cache = Cache(app)
 
 # Configuring logging
 logging.basicConfig(filename='app.log', level=logging.INFO)
@@ -48,6 +57,11 @@ def generate_embedding():
             return jsonify({'error': 'No image file provided'}), 400
         
         image_file = request.files['image']
+        cache_key = f'embedding_{image_file.filename}'
+
+        cached_embedding = cache.get(cache_key)
+        if cached_embedding:
+            return jsonify({'embedding': cached_embedding})
 
         if image_file.filename == '':
             return jsonify({'error': 'No image file provided'}), 400
@@ -70,10 +84,12 @@ def generate_embedding():
         return jsonify({'error': str(e)}), 500
     
     embedding = extract_embeddings(image)
+    embedding_list = embedding.tolist()
     # embeddings.append(embedding)
     # index.add(np.array(embedding))
+    cache.set(cache_key, embedding_list)
     
-    return jsonify({'embedding':embedding.tolist()})
+    return jsonify({'embedding':embedding_list})
 
 
 if __name__ == '__main__':

@@ -4,3 +4,55 @@ WARNING:werkzeug: * Running on all addresses.
    WARNING: This is a development server. Do not use it in a production deployment.
 INFO:werkzeug: * Running on http://192.168.1.4:5000/ (Press CTRL+C to quit)
 INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.4:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.4:5000/ (Press CTRL+C to quit)
+INFO:root:Generated embedding for image: WIN_20230424_10_14_22_Pro.jpg
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:48:02] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.4:5000/ (Press CTRL+C to quit)
+INFO:root:Generated embedding for image: WIN_20230424_10_14_22_Pro.jpg
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:56:17] "POST /generate_embedding HTTP/1.1" 200 -
+ERROR:root:Error generating embedding: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:56:20] "[35m[1mPOST /generate_embedding HTTP/1.1[0m" 500 -
+ERROR:root:Error generating embedding: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:56:27] "[35m[1mPOST /generate_embedding HTTP/1.1[0m" 500 -
+ERROR:root:Error generating embedding: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:56:28] "[35m[1mPOST /generate_embedding HTTP/1.1[0m" 500 -
+ERROR:root:Error generating embedding: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:56:28] "[35m[1mPOST /generate_embedding HTTP/1.1[0m" 500 -
+ERROR:root:Error generating embedding: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:56:29] "[35m[1mPOST /generate_embedding HTTP/1.1[0m" 500 -
+ERROR:root:Error generating embedding: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:58:05] "[35m[1mPOST /generate_embedding HTTP/1.1[0m" 500 -
+ERROR:root:Error generating embedding: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:58:06] "[35m[1mPOST /generate_embedding HTTP/1.1[0m" 500 -
+ERROR:root:Error generating embedding: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:59:35] "[35m[1mPOST /generate_embedding HTTP/1.1[0m" 500 -
+ERROR:root:Error generating embedding: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 19:59:35] "[35m[1mPOST /generate_embedding HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.4:5000/ (Press CTRL+C to quit)
+INFO:root:Generated embedding for image: WIN_20230424_10_14_22_Pro.jpg
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 20:00:19] "POST /generate_embedding HTTP/1.1" 200 -
+ERROR:root:Error generating embedding: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+INFO:werkzeug:127.0.0.1 - - [19/Mar/2024 20:00:21] "[35m[1mPOST /generate_embedding HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
