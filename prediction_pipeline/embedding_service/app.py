@@ -4,15 +4,18 @@ from torchvision import transforms
 from efficientnet_pytorch import EfficientNet
 import faiss
 from PIL import Image
-# import numpy as np
+import numpy as np
 # from io import BytesIO
 from werkzeug.utils import secure_filename
 import imghdr
 from flask import Flask, request, jsonify
 import logging
 from flask_caching import Cache
+from typing import List
 
 app = Flask(__name__)
+
+BATCH_SIZE = 32
 
 config = {
     'CACHE_TYPE': 'simple',
@@ -49,6 +52,20 @@ def extract_embeddings(image):
         input_tensor = preprocess(image).unsqueeze(0)
         embedding = model.extract_features(input_tensor).cpu().numpy().flatten()
     return embedding
+
+
+# function for batching (processing multiple images simultaneously, will implement later)
+# def extract_embeddings(images: List[Image.Image]) -> List[np.ndarray]:
+#     input_tensors = []
+#     for image in images:
+#         input_tensor = preprocess(image).unsqueeze(0)
+#         input_tensors.append(input_tensor)
+
+#     input_batch = torch.cat(input_tensors)
+#     with torch.no_grad():
+#         embeddings = model.extract_features(input_batch).cpu().numpy()
+
+#     return embeddings
 
 @app.route('/generate_embedding', methods=['POST'])
 def generate_embedding():
