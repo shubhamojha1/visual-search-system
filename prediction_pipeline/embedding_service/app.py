@@ -9,8 +9,12 @@ from PIL import Image
 from werkzeug.utils import secure_filename
 import imghdr
 from flask import Flask, request, jsonify
+import logging
 
 app = Flask(__name__)
+
+# Configuring logging
+logging.basicConfig(filename='app.log', level=logging.INFO)
 
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'bmp'}
 
@@ -59,8 +63,10 @@ def generate_embedding():
         # image_bytes = image_file.read()
         # image_stream = BytesIO(image_bytes)
         # image_stream.seekable = True
+        logging.info(f'Generated embedding for image: {image_file.filename}')
         image = Image.open(image_file.stream)
     except Exception as e:
+        logging.error(f'Error generating embedding: {str(e)}')
         return jsonify({'error': str(e)}), 500
     
     embedding = extract_embeddings(image)

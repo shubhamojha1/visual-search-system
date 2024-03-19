@@ -1,0 +1,6 @@
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.4:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
