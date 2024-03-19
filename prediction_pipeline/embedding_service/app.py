@@ -36,14 +36,14 @@ def generate_embedding():
     # image_path = os.path.join('images', image.filename)
     # image = Image.open(image_file)
     # image.save(image_path)
-    image_bytes = image_file.read()
-    image_stream = BytesIO(image_bytes)
-    image_stream.seekable = True
-    image = Image.open(image_stream)
+    # image_bytes = image_file.read()
+    # image_stream = BytesIO(image_bytes)
+    # image_stream.seekable = True
+    image = Image.open(image_file.stream)
 
-    embedding = extract_embeddings(Image.open(image))
-    embeddings.append(embedding)
-    index.add(np.array(embedding))
+    embedding = extract_embeddings(image)
+    # embeddings.append(embedding)
+    # index.add(np.array(embedding))
     
     return jsonify({'embedding':embedding.tolist()})
 
