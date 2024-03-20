@@ -22,5 +22,14 @@ class TestEmbeddingService(unittest.TestCase):
             data = json.loads(response.data)
             self.assertIsInstance(data['embedding'], list)
             self.assertGreater(len(data['embedding']), 0)
-            
+
+        # To test with no image file provided
+        response = self.app.post('/generate_embedding')
+        self.assertEqual(response.status_code, 400)
+        data = json.loads(response.data)
+        self.assertEqual(data['error'], 'No image file provided')
+
+        # To test with invalid file type
+        
+
 
