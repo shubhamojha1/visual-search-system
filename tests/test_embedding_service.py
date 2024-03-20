@@ -30,6 +30,11 @@ class TestEmbeddingService(unittest.TestCase):
         self.assertEqual(data['error'], 'No image file provided')
 
         # To test with invalid file type
-        
+        with open('tests/test_file.txt', 'rb') as f:
+            data = dict(image=(f, 'test_file.txt'))
+            response = self.app.post('/generate_embedding', data=data, content_type='multipart/form-data')
+            self.assertEqual(response.status_code, 400)
+            data = json.loads(response.data)
+            self.assertEqual(data['error'], 'Invalid file type')
 
 
