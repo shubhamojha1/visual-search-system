@@ -5,8 +5,13 @@ import json
 from PIL import Image
 import numpy as np
 from io import BytesIO
+import sys
 
-from prediction_pipeline.embedding_service.app import app, extract_embeddings
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from prediction_pipeline.embedding_service import app, extract_embeddings
+
+# print(os.getcwd())
 
 class TestEmbeddingService(unittest.TestCase):
     def setUp(self):
@@ -15,8 +20,8 @@ class TestEmbeddingService(unittest.TestCase):
 
     def test_generate_embedding(self):
         # To test with a valid image file
-        with open('tests/test_image.jpg', 'rb') as f:
-            data = dict(image=(f, 'test_image.jpg'))
+        with open('test_image.jpeg', 'rb') as f:
+            data = dict(image=(f, 'test_image.jpeg'))
             response = self.app.post('/generate_embedding', data=data, content_type='multipart/form-data')
             self.assertEqual(response.status_code, 200)
             data = json.loads(response.data)
@@ -30,11 +35,16 @@ class TestEmbeddingService(unittest.TestCase):
         self.assertEqual(data['error'], 'No image file provided')
 
         # To test with invalid file type
-        with open('tests/test_file.txt', 'rb') as f:
+        with open('test_file.txt', 'rb') as f:
             data = dict(image=(f, 'test_file.txt'))
             response = self.app.post('/generate_embedding', data=data, content_type='multipart/form-data')
             self.assertEqual(response.status_code, 400)
             data = json.loads(response.data)
             self.assertEqual(data['error'], 'Invalid file type')
+
+
+if __name__ == "__main__":
+    # print(os.getcwd())
+    unittest.main()
 
 
