@@ -42,6 +42,14 @@ class TestEmbeddingService(unittest.TestCase):
             data = json.loads(response.data)
             self.assertEqual(data['error'], 'Invalid file type')
 
+    @patch('app.extract_embeddings')
+    def test_extract_embedding(self, mock_extract_embedding):
+        mock_image = mock_open(read_data=b'mock_image_data').return_value
+        mock_extract_embedding.return_value = np.array([1.0, 2.0, 3.0])
+        embedding = extract_embeddings(mock_image)
+        self.assertIsInstance(embedding, np.ndarray)
+        self.assertEqual(embedding.tolist(), [1.0, 2.0, 3.0])
+
 
 if __name__ == "__main__":
     # print(os.getcwd())
