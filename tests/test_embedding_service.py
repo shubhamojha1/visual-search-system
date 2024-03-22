@@ -50,6 +50,23 @@ class TestEmbeddingService(unittest.TestCase):
         self.assertIsInstance(embedding, np.ndarray)
         self.assertEqual(embedding.tolist(), [1.0, 2.0, 3.0])
 
+    def test_input_validation(self):
+        with open('test_image.jpg', 'rb') as f:
+            data = dict(image=(f, ''))
+            response = self.app.post('/generate_embedding', data=data, content_type='multipart/form-data')
+            self.assertEqual(response.status_code, 400)
+            data = json.loads(response.data)
+            self.assertEqual(data['error'], 'No image file provided')
+
+        mock_image = mock_open(read_data=b'invalid_image_data').return_value
+        with patch('PIL.Image.open', return_value=mock_image):
+            with open('tests/test_image.jpg', 'rb') as f:
+                data = dict(image=(f, 'test_image.jpeg'))
+                response = self.app.post('/generate_embeddings', data=data, content_type='multipart/form-data')
+                self.assertEqual(response.status_code, 400)
+                data = json.loads(response.data)
+                self.assertEqual(data['error'], 'Invalid image file')
+
 
 if __name__ == "__main__":
     # print(os.getcwd())
