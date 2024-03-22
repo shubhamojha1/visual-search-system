@@ -62,10 +62,20 @@ class TestEmbeddingService(unittest.TestCase):
         with patch('PIL.Image.open', return_value=mock_image):
             with open('tests/test_image.jpg', 'rb') as f:
                 data = dict(image=(f, 'test_image.jpeg'))
-                response = self.app.post('/generate_embeddings', data=data, content_type='multipart/form-data')
+                response = self.app.post('/generate_embedding', data=data, content_type='multipart/form-data')
                 self.assertEqual(response.status_code, 400)
                 data = json.loads(response.data)
                 self.assertEqual(data['error'], 'Invalid image file')
+
+    def test_error_handling(self):
+    # Test with an exception raised during embedding generation
+        with patch('app.extract_embeddings', side_effect=Exception('Test exception')):
+            with open('tests/test_image.jpg', 'rb') as f:
+                data = dict(image=(f, 'test_image.jpg'))
+                response = self.app.post('/generate_embedding', data=data, content_type='multipart/form-data')
+                self.assertEqual(response.status_code, 500)
+                data = json.loads(response.data)
+                self.assertEqual(data['error'], 'Test exception')
 
 
 if __name__ == "__main__":
