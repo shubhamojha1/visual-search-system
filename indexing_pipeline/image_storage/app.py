@@ -28,3 +28,11 @@ def upload_image():
         except Exception as err:
             return jsonify({"error": str(err)}), 500
     return jsonify({"error": "Unknown error"}), 500
+
+@app.route('/retrieve/<image_name>', methods=['GET'])
+def retrieve_image(image_name):
+    try:
+        data = retrieve_object(client, bucket_name, image_name, "retrieved_image.jpg")
+        return data, 200
+    except Exception as err:
+        return jsonify({"error": str(err)}), 500
