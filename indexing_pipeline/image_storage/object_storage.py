@@ -1,5 +1,6 @@
 from minio import Minio
 from minio.error import S3Error
+from flask import Response
 import io
 
 def store_object(client, bucket_name, object_name, file_content): #file_path):
@@ -14,11 +15,23 @@ def store_object(client, bucket_name, object_name, file_content): #file_path):
     except S3Error as err:
         print("An error occurred:", err)
 
-def retrieve_object(client, bucket_name, object_name, file_path):
+# def retrieve_object(client, bucket_name, object_name, file_path):
+#     try:
+#         data = client.get_object(bucket_name, object_name)
+#         with open(file_path, "wb") as file_data:
+#             for d in data.stream(32*1024):
+#                 file_data.write(d)
+#     except S3Error as err:
+#         print("An error occurred:", err)
+
+def retrieve_object(client, bucket_name, object_name):
     try:
+        # Retrieve the object from MinIO
         data = client.get_object(bucket_name, object_name)
-        with open(file_path, "wb") as file_data:
-            for d in data.stream(32*1024):
-                file_data.write(d)
+        # Read the object data
+        file_data = data.read()
+        # Return the data as a Flask Response object
+        return Response(file_data, mimetype="image/jpeg")
     except S3Error as err:
         print("An error occurred:", err)
+        return None # Or handle the error appropriat
