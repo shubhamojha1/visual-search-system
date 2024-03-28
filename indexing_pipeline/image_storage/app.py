@@ -1,13 +1,15 @@
 from flask import Flask, request, jsonify
+from bucket_management import create_bucket
+from object_storage import store_object, retrieve_object
 from minio import Minio
-from minio.error import S3Error
+
 
 app = Flask(__name__)
 
 client = Minio(
     "localhost:9000",
-    access_key="YOUR-ACCESSKEY",
-    secret_key="YOUR-SECRETKEY",
+    access_key="minioadmin",
+    secret_key="minioadmin",
     secure=False,
 )
 
@@ -22,8 +24,12 @@ def upload_image():
         return jsonify({"error": "No selected file"}), 400
     if file:
         create_bucket(client, BUCKET_NAME)
+        print(file)
         try:
-            store_object(client, BUCKET_NAME, file.filename, file)
+            file_content = file.read() # 
+            # print(file_content)
+            # print(file.filename)
+            store_object(client, BUCKET_NAME, file.filename, file_content)#file)
             return jsonify({"success": "Image uploaded successfully"}), 200
         except Exception as err:
             return jsonify({"error": str(err)}), 500
@@ -32,7 +38,10 @@ def upload_image():
 @app.route('/retrieve/<image_name>', methods=['GET'])
 def retrieve_image(image_name):
     try:
-        data = retrieve_object(client, bucket_name, image_name, "retrieved_image.jpg")
+        data = retrieve_object(client, BUCKET_NAME, image_name, "retrieved_image.jpg")
         return data, 200
     except Exception as err:
         return jsonify({"error": str(err)}), 500
+    
+if __name__ == '__main__':
+    app.run(debug=True)
