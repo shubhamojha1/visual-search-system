@@ -110,3 +110,104 @@ INFO:werkzeug:127.0.0.1 - - [20/Mar/2024 02:29:18] "GET /generate_embedding?__de
 INFO:werkzeug:127.0.0.1 - - [20/Mar/2024 02:29:18] "GET /generate_embedding?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [20/Mar/2024 02:29:18] "GET /generate_embedding?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
 INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.4:5000/ (Press CTRL+C to quit)
+INFO:root:Generated embedding for image: WIN_20230424_10_14_22_Pro.jpg
+INFO:werkzeug:127.0.0.1 - - [20/Mar/2024 02:33:15] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Mar/2024 02:33:18] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Mar/2024 02:33:19] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Mar/2024 02:33:20] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Mar/2024 02:33:21] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Mar/2024 02:33:22] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.8:6000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.8:7000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:12:28] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:12:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:13:35] "[31m[1mGET /generate_embedding HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:14:44] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:14:46] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:root:Generated embedding for image: test_image.jpeg
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:15:06] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:19:19] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:21:00] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.8:7000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:22:58] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:root:Generated embedding for image: test_image.jpeg
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:24:35] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:25:04] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:30:04] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:30:21] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:33:06] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:33:21] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.8:7000/ (Press CTRL+C to quit)
+INFO:root:Generated embedding for image: test_image.jpeg
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:34:09] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:34:42] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:37:40] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.8:7000/ (Press CTRL+C to quit)
+INFO:root:Generated embedding for image: test_image.jpeg
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:38:42] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:38:51] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.8:7000/ (Press CTRL+C to quit)
+INFO:root:Generated embedding for image: test_image.jpeg
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:40:35] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:40:40] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:42:01] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.8:7000/ (Press CTRL+C to quit)
+INFO:root:Generated embedding for image: test_image.jpeg
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:42:52] "POST /generate_embedding HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:42:58] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug:127.0.0.1 - - [30/Mar/2024 02:43:51] "[31m[1mPOST /generate_embedding HTTP/1.1[0m" 400 -
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 396-791-672
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://192.168.1.8:7000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Detected change in 'D:\\visual-search-system\\visual-search-system\\prediction_pipeline\\embedding_service\\app.py', reloading

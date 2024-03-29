@@ -46,6 +46,7 @@ embeddings = []
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    # return True
 
 def extract_embeddings(image):
     with torch.no_grad():
@@ -75,7 +76,7 @@ def generate_embedding():
         
         image_file = request.files['image']
         cache_key = f'embedding_{image_file.filename}'
-
+        print("image file ----> ",image_file)
         cached_embedding = cache.get(cache_key)
         if cached_embedding:
             return jsonify({'embedding': cached_embedding})
@@ -84,6 +85,7 @@ def generate_embedding():
             return jsonify({'error': 'No image file provided'}), 400
         
         if not allowed_file(image_file.filename):
+            print(image_file.filename)
             return jsonify({'error': 'Invalid file type'}), 400
         
         if imghdr.what(image_file) is None:
@@ -94,6 +96,8 @@ def generate_embedding():
         # image_bytes = image_file.read()
         # image_stream = BytesIO(image_bytes)
         # image_stream.seekable = True
+        print("*"*100)
+        print(image_file)
         logging.info(f'Generated embedding for image: {image_file.filename}')
         image = Image.open(image_file.stream)
     except Exception as e:
@@ -110,5 +114,5 @@ def generate_embedding():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=7000)
 
