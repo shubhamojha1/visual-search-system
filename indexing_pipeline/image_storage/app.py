@@ -5,9 +5,11 @@ from minio import Minio
 import base64
 import requests
 import os
+import logging
 
 
 app = Flask(__name__)
+logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s') # make same changes in other API logging as well 
 
 MINIO_HOST = os.environ.get('MINIO_HOST', 'localhost:9000')
 MINIO_ACCESS_KEY = os.environ.get('MINIO_ACCESS_KEY', 'minioadmin')
@@ -30,6 +32,12 @@ data_dirs = [os.path.join(MINIO_BASE_DIR, "data1"),
              os.path.join(MINIO_BASE_DIR, "data2"),
               os.path.join(MINIO_BASE_DIR, "data3")]
 erasure_code_config = {"data": 2, "parity": 1}
+
+try:
+    client.set_erasure_code("myerasureset", data_dirs, erasure_code_config)
+except Exception as err:
+    logging.error(f"Error setting up MinIO cluster: {err}")
+
 
 BUCKET_NAME = 'images'
 
