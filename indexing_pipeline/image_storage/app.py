@@ -4,18 +4,32 @@ from object_storage import store_object, retrieve_object
 from minio import Minio
 import base64
 import requests
+import os
 
 
 app = Flask(__name__)
 
+MINIO_HOST = os.environ.get('MINIO_HOST', 'localhost:9000')
+MINIO_ACCESS_KEY = os.environ.get('MINIO_ACCESS_KEY', 'minioadmin')
+MINIO_SECRET_KEY = os.environ.get('MINIO_SECRET_KEY', 'minioadmin')
+MINIO_BASE_DIR = os.environ.get('MINIO_BASE_DIR', 'visual-search-system/common/storage')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+MAX_IMAGE_SIZE = 10 * 1024 * 1024  # 10 MB
+
 EMBEDDING_GENERATION_SERVICE_URL = 'http://localhost:7000/generate_embedding'
 
 client = Minio(
-    "localhost:9000",
-    access_key="minioadmin",
-    secret_key="minioadmin",
+    MINIO_HOST,
+    access_key=MINIO_ACCESS_KEY,
+    secret_key=MINIO_SECRET_KEY,
     secure=False,
 )
+
+# distributed MinIO cluster with replication factor of 3
+data_dirs = [os.path.join(MINIO_BASE_DIR, "data1"),
+             os.path.join(MINIO_BASE_DIR, "data2"),
+              os.path.join(MINIO_BASE_DIR, "data3")]
+erasure_code_config = {"data": 2, "parity": 1}
 
 BUCKET_NAME = 'images'
 
