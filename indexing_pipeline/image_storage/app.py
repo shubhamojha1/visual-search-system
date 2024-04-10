@@ -7,6 +7,7 @@ import requests
 import os
 import logging
 from werkzeug.utils import secure_filename
+import tempfile
 
 
 app = Flask(__name__)
@@ -54,7 +55,6 @@ def upload_image():
     file = request.files['file']
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
-
     if file and allowed_file(file.filename):
         if file.content_length > MAX_IMAGE_SIZE:
             return jsonify({'error': f'Image size exceeds the limit of {MAX_IMAGE_SIZE / (1024 * 1024)} MB'}), 413
@@ -62,17 +62,12 @@ def upload_image():
             # Save image to MinIO
             filename = secure_filename(file.filename)
             object_name = f"{BUCKET_NAME}/{filename}"
-            # client.fput_object(BUCKET_NAME, object_name, request.files.get('file'), erasure_code='myerasureset') # DOESNT WORK FOR SOME REASON
-            store_object(client, BUCKET_NAME, file.filename, file.read())#file)
+            # result = client.fput_object(BUCKET_NAME, object_name, file_) # DOESNT WORK FOR SOME REASON
+            result = client.put_object(BUCKET_NAME, object_name, file.stream, file.content_length, file.content_type)
 
-            # Generate image embedding
-            # embedding = generate_embedding(object_name, request.files.get('file'))
+            # with tempfile.NamedTemporaryFile(delete=False) as tmp_file: # not scalable using tempfile
             embedding = generate_embedding(object_name, file)
-
-            # Save embedding
-            # save_embedding(object_name, embedding)
-
-            return jsonify({'success': 'Image uploaded and embedding generated successfully', 'embedding': embedding}), 200
+            return jsonify({'success': 'Image uploaded and embedding generated successfully', 'embedding': embedding, 'object_name': result.object_name}), 200
         except Exception as err:
             logging.error(f"Error uploading or processing image: {err}")
             return jsonify({'error', 'Failed to upload or process the image'}), 500 # Break exception into multiple to deal with exact issue 
