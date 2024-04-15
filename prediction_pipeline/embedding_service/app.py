@@ -142,7 +142,6 @@ def monkey_patch_imghdr():
     tests.append(test_jpeg2)
     tests.append(test_jpeg3)
 
-
 if __name__ == '__main__':
     monkey_patch_imghdr()
     app.run(debug=True, host='0.0.0.0', port=7000)
