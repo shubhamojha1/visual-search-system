@@ -16,7 +16,7 @@ logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s 
 MINIO_HOST = os.environ.get('MINIO_HOST', 'localhost:9000')
 MINIO_ACCESS_KEY = os.environ.get('MINIO_ACCESS_KEY', 'minioadmin')
 MINIO_SECRET_KEY = os.environ.get('MINIO_SECRET_KEY', 'minioadmin')
-MINIO_BASE_DIR = os.environ.get('MINIO_BASE_DIR', 'visual-search-system/common/storage')
+MINIO_BASE_DIR = os.environ.get('MINIO_BASE_DIR', 'D:/visual-search-system/visual-search-system/common/storage') #'visual-search-system/common/storage')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 MAX_IMAGE_SIZE = 10 * 1024 * 1024  # 10 MB
 
@@ -33,19 +33,19 @@ client = Minio(
 data_dirs = [os.path.join(MINIO_BASE_DIR, "data1"),
              os.path.join(MINIO_BASE_DIR, "data2"),
               os.path.join(MINIO_BASE_DIR, "data3")]
-erasure_code_config = {"data": 2, "parity": 1}
+# erasure_code_config = {"data": 2, "parity": 1}
 
-try:
-    client.set_erasure_code("myerasureset", data_dirs, erasure_code_config)
-except Exception as err:
-    logging.error(f"Error setting up MinIO cluster: {err}")
+# try:
+#     client.set_erasure_code("myerasureset", data_dirs, erasure_code_config)
+# except Exception as err:
+#     logging.error(f"Error setting up MinIO cluster: {err}")
 
 
 BUCKET_NAME = 'images'
 try:
     if not client.bucket_exists(BUCKET_NAME):
         client.make_bucket(BUCKET_NAME, erasure_code="myerasureset")
-except:
+except Exception as err:
     logging.error(f"Error creating bucket: {err}")
 
 @app.route('/upload', methods=['POST'])
@@ -53,6 +53,8 @@ def upload_image():
     if 'file' not in request.files:
         return jsonify({"error": "No file part"}), 400
     file = request.files['file']
+    print('file.filename ----> ', file.filename, type(file.filename))
+    print('secure -----> ', secure_filename(file.filename), type(secure_filename(file.filename)))
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
     if file and allowed_file(file.filename):
@@ -60,14 +62,21 @@ def upload_image():
             return jsonify({'error': f'Image size exceeds the limit of {MAX_IMAGE_SIZE / (1024 * 1024)} MB'}), 413
         try:
             # Save image to MinIO
-            filename = secure_filename(file.filename)
-            object_name = f"{BUCKET_NAME}/{filename}"
+            # filename = secure_filename(file.filename)
+            # object_name = f"{BUCKET_NAME}/{filename}"
+            object_name = file.filename
+            print("type checking ----> ",type(object_name), object_name)
             # result = client.fput_object(BUCKET_NAME, object_name, file_) # DOESNT WORK FOR SOME REASON
-            result = client.put_object(BUCKET_NAME, object_name, file.stream, file.content_length, file.content_type)
+            # result = client.put_object(BUCKET_NAME, object_name, file.stream, file.content_length, file.content_type)
+            store_object(client, BUCKET_NAME, file.filename, file.read())#file)
 
             # with tempfile.NamedTemporaryFile(delete=False) as tmp_file: # not scalable using tempfile
-            embedding = generate_embedding(object_name, file)
-            return jsonify({'success': 'Image uploaded and embedding generated successfully', 'embedding': embedding, 'object_name': result.object_name}), 200
+            embedding = generate_embedding(object_name, file) # NEED TO DO THIS IN indexing_service.
+
+            save_embedding(object_name, embedding)
+
+            # return jsonify({'success': 'Image uploaded and embedding generated successfully', 'embedding': embedding, 'object_name': result.object_name}), 200
+            return jsonify({'success': 'Image uploaded and embedding generated successfully', 'embedding': embedding}), 200
         except Exception as err:
             logging.error(f"Error uploading or processing image: {err}")
             return jsonify({'error', 'Failed to upload or process the image'}), 500 # Break exception into multiple to deal with exact issue 
@@ -106,13 +115,33 @@ def upload_image():
 
 @app.route('/retrieve/<image_name>', methods=['GET'])
 def retrieve_image(image_name):
+    # try:
+    #     response = retrieve_object(client, BUCKET_NAME, image_name)
+    #     if response is None:
+    #         return jsonify({"error": "Failed to retrieve image"}), 500
+    #     return response
+    # except Exception as err:
+    #     return jsonify({"error": str(err)}), 500
     try:
-        response = retrieve_object(client, BUCKET_NAME, image_name)
-        if response is None:
-            return jsonify({"error": "Failed to retrieve image"}), 500
-        return response
+        # object_name = f"{BUCKET_NAME}/{secure_filename(image_name)}" # original way
+        object_name = image_name # temporarily
+        # data = client.get_object(BUCKET_NAME, object_name).data
+        print("object_name -----------> ", object_name)
+        print("type checking ----> ",type(secure_filename(image_name)))
+        response = retrieve_object(client, BUCKET_NAME, object_name) #client.get_object(BUCKET_NAME, object_name)
+        print(response.status, response.headers, response.data)
+        # data = b''
+        data = response.data
+        image_data = base64.b64encode(data).decode('utf-8')
+
+        print("image_data -----------------------------> ", data)
+
+        # Retrieve embedding from index table
+        embedding = retrieve_embedding(object_name)
+        return jsonify({'image': image_data, 'embedding': embedding})
     except Exception as err:
-        return jsonify({"error": str(err)}), 500
+        logging.error(f"Error retrieving image: {err}")
+        return jsonify({'error': 'Failed to retrieve image'}), 500
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -132,6 +161,14 @@ def generate_embedding(object_name, file):
     except Exception as err:
         logging.error(f"Error generating embedding: {err}")
         raise err
+    
+def save_embedding(object_name, embedding):
+    # Save embedding to the index table/db
+    pass
+
+def retrieve_embedding(object_name):
+    # Retrieve embedding from index table/ db
+    return {'embedding': [0.1, 0.2, 0.3, 0.4, 0.5]} # placeholder value
 
 
     
