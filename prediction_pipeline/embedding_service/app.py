@@ -77,6 +77,7 @@ def generate_embedding():
         image_file = request.files['image']
         cache_key = f'embedding_{image_file.filename}'
         print("image file ----> ",image_file)
+        print(image_file.filename, image_file.stream, image_file.content_type)
         cached_embedding = cache.get(cache_key)
         if cached_embedding:
             return jsonify({'embedding': cached_embedding})
@@ -88,9 +89,11 @@ def generate_embedding():
             print(image_file.filename)
             return jsonify({'error': 'Invalid file type'}), 400
         # print(imghdr.what(image_file))
-        if imghdr.what(image_file) is None:
-            # if os.path.splitext(image_file)[1].lower() != '.jpg': # imghdr doesnt support detection of 'jpg', so added explicitly
-            return jsonify({'error': 'Invalid image file'}), 400
+        # if imghdr.what(image_file) is None:
+        #     print(imghdr.what(image_file))
+        #     print(imghdr.tests)
+        #     # if os.path.splitext(image_file)[1].lower() != '.jpg': # imghdr doesnt support detection of 'jpg', so added explicitly
+        #     return jsonify({'error': 'Invalid image file'}), 400
         # image_path = os.path.join('images', image.filename)
         # image = Image.open(image_file)
         # image.save(image_path)
@@ -115,7 +118,7 @@ def generate_embedding():
 
 
 def monkey_patch_imghdr():
-    # Monkeypatch bug in imagehdr
+    # Monkeypatch bug in imagehdr to detect .jpg images
     from imghdr import tests
 
     def test_jpeg1(h, f):
@@ -141,6 +144,7 @@ def monkey_patch_imghdr():
     tests.append(test_jpeg1)
     tests.append(test_jpeg2)
     tests.append(test_jpeg3)
+    # print(imghdr.tests)
 
 if __name__ == '__main__':
     monkey_patch_imghdr()
